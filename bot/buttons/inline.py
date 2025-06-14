@@ -1,23 +1,54 @@
-from aiogram.types import InlineKeyboardButton
-from aiogram.utils.keyboard import InlineKeyboardBuilder
+from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-builder = InlineKeyboardBuilder()
-builder.button(text="🕌 Qazo duolarim", callback_data="qazo_duolar")
-builder.button(text="❓ Ko‘p berilgan savollar", callback_data="faq")
-builder.button(text="🕒 Namoz vaqtlari", callback_data="namoz_times")
-builder.button(text="ℹ️ Bot haqida", callback_data="about_bot")
+builder = InlineKeyboardMarkup(inline_keyboard=[
+    [InlineKeyboardButton(text="🕌 Qazolarim", callback_data="qazolar"),
+     InlineKeyboardButton(text="🕒 Namoz vaqtlari", callback_data="namoz_times")
+     ],
+    [InlineKeyboardButton(text="❓ Ko‘p berilgan savollar", callback_data="faq"),
+     InlineKeyboardButton(text="ℹ️ Bot haqida", callback_data="about_bot")],
 
-builder.row(InlineKeyboardButton(text="🌐 Saytga o‘tish", url="https://google.com"))
+    [InlineKeyboardButton(text="🌐 Saytga o‘tish", url="https://shopick.uz")]
+])
+qazos = InlineKeyboardMarkup(inline_keyboard=[
+    [InlineKeyboardButton(text="🕌 Qazo hisoblash", callback_data="qazo_calc")],
+    [InlineKeyboardButton(text="🧎‍♂️ Alhamdulillah, qazoim yo‘q", callback_data="iamnot_qazo")],
+    [InlineKeyboardButton(text="🎓 Qazo ibodatlari haqida", callback_data="what_qazo")]
 
-builder.adjust(2, 2, 1)
-builder = builder.as_markup()
+])
 
-qazos = InlineKeyboardBuilder()
-qazos.button(text="🕌 Qazo hisoblash", callback_data="qazo_calc")
-qazos.button(text="🎓 Qazo ibodatlari haqida", callback_data="what_qazo")
-qazos.button(text="🧎‍♂️ Alhamdulillah, qazoim yo‘q", callback_data="iamnot_qazo")
-qazos = qazos.as_markup()
 
-calc_qazo = InlineKeyboardBuilder()
-calc_qazo.button(text="🕌 Qazo hisoblash", callback_data="hisoblash_qazoni")
-calc_qazo.button(text="🧎‍♂️ Alhamdulillah, qazoim yo‘q", callback_data="not_qazo")
+calc_qazo = InlineKeyboardMarkup(inline_keyboard=[
+    [InlineKeyboardButton(text="🕌 Qazo namozlarimni  hisoblash", callback_data="hisoblash_qazoni")],
+    [InlineKeyboardButton(text="🧎‍♂️ Alhamdulillah, qazoim yo‘q", callback_data="not_qazo")],
+    [InlineKeyboardButton(text="🔙 Orqaga", callback_data="back_to_menu")]
+])
+hisobla = InlineKeyboardMarkup(
+    inline_keyboard=[
+        [
+            InlineKeyboardButton(
+                text="🧮 Hisoblashni boshlash",
+                callback_data="start_calculation"
+            )
+        ]
+    ]
+)
+one_less_keyboard = InlineKeyboardMarkup(
+    inline_keyboard=[
+        [
+            InlineKeyboardButton(
+                text="📆 Menda yildan kam qazo bor",
+                callback_data="one_less"
+            )
+        ]
+    ]
+)
+back_keyboard = InlineKeyboardMarkup(
+    inline_keyboard=[
+        [
+            InlineKeyboardButton(
+                text="🔙 Orqaga",
+                callback_data="back"
+            )
+        ]
+    ]
+)

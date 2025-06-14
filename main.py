@@ -5,7 +5,7 @@ import sys
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 
-from bot.handlers.main import *
+from bot.handlers import *
 
 from bot.dispatcher import dp, on_startup, on_shutdown
 from utils.utils import Config
