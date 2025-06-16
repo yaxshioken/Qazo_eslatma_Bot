@@ -103,7 +103,6 @@ class DB:
                             """
         cursor.execute(get_all_qazos_sql, (telegram_id,))
         data = cursor.fetchone()
-        cursor.close()
         return {
             "bomdod": data[0] or 0,
             "peshin": data[1] or 0,
@@ -111,6 +110,18 @@ class DB:
             "shom": data[3] or 0,
             "xufton": data[4] or 0
         }
+
+    def qazolarni_qoshish(self, telegram_id,qaza):
+        cursor = self.db.cursor()
+        get_all_qazos_sql = """
+                            SELECT bomdod+ %s, peshin+%s, asr+%s, shom+%s, xufton%s
+                            FROM qazo_namozlar
+                            WHERE user_id = %s \
+                            """
+        cursor.execute(get_all_qazos_sql, (telegram_id,qaza))
+        if self.db.commit():
+            return True
+        return False
 
     def update_single_qazo(self, user_id: int, namoz: str, value: int):
         cursor = self.db.cursor()

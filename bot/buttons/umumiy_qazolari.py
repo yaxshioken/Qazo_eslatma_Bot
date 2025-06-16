@@ -1,8 +1,8 @@
-from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
+from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 from db.config import DB
 
-db=DB()
+db = DB()
 
 
 def create_qazo_keyboard(user_id: int) -> InlineKeyboardMarkup:
@@ -18,7 +18,7 @@ def create_qazo_keyboard(user_id: int) -> InlineKeyboardMarkup:
         keyboard.append(row)
 
     keyboard.append([
-        InlineKeyboardButton(text="🔙 Orqaga", callback_data="back")
+        InlineKeyboardButton(text="🔙 Orqaga", callback_data="back_")
     ])
 
     return InlineKeyboardMarkup(inline_keyboard=keyboard)

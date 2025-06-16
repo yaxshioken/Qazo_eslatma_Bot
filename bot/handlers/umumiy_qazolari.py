@@ -1,7 +1,7 @@
 from aiogram import F
 from aiogram.types import CallbackQuery
 
-from bot.buttons.inline import builder
+from bot.buttons.inline import asosiy_menyu, welcome
 from bot.buttons.umumiy_qazolari import create_qazo_keyboard
 from bot.dispatcher import dp
 from db.config import DB
@@ -9,18 +9,26 @@ from db.config import DB
 db = DB()
 
 
-@dp.callback_query(F.data == "qazolar")
+@dp.callback_query(F.data == "qazolar_bo'limi")
 async def handle_qazo_duolar(callback: CallbackQuery):
     await callback.message.answer(
-        "Sizning qazolaringiz :(",
-        parse_mode="HTML", reply_markup=create_qazo_keyboard(callback.from_user.id)
-    )
+        "Menyulardan birini tanlang",
+        parse_mode="HTML", reply_markup=welcome)
     await callback.answer()
-    await callback.message.edit_reply_markup()
 
-    @dp.callback_query(F.data == "back")
+
+@dp.callback_query(F.data == "qazolarim")
+async def handle_my_qazos(callback: CallbackQuery):
+    await callback.message.edit_text(text="Sizning qazolaringiz :(",
+                                     reply_markup=create_qazo_keyboard(callback.from_user.id))
+
+    await callback.answer()
+
+    @dp.callback_query(F.data == "back_")
     async def handle_back(callback: CallbackQuery):
-        await callback.message.edit_text("Asosiy menyu:", reply_markup=builder)
+        await callback.message.edit_text("Asosiy menyu:", reply_markup=welcome)
+        await callback.answer()
+
     @dp.callback_query(F.data.startswith("increase:") | F.data.startswith("decrease:"))
     async def handle_qazo_adjust(callback: CallbackQuery):
         action, namoz = callback.data.split(":")
@@ -40,7 +48,7 @@ async def handle_qazo_duolar(callback: CallbackQuery):
             await callback.message.edit_reply_markup(
                 reply_markup=updated_keyboard
             )
-        if callback.data =="back":
+        if callback.data == "back":
             await callback.message.answer(
-                text="Siz Asosiy Menyudasiz!",reply_markup=builder)
+                text="Siz Asosiy Menyudasiz!", reply_markup=asosiy_menyu)
         await callback.answer()
